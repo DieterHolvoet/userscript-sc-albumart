@@ -1,0 +1,1 @@
+userscript-sc-albumart
