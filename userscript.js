@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Soundcloud Album Art Downloader
 // @namespace    http://www.dieterholvoet.com
-// @version      1.8
+// @version      1.9
 // @description  Allows you to download album art on the Soundcloud website.
 // @author       Dieter Holvoet
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
@@ -40,8 +40,8 @@ setInterval(function() {
             imageURL = imageURL.replace(regexp, "original");
 
             $(".modal__content .image__full").parent().remove();
-            $(".modal__content").append("<img style='width: 500px; height: 500px' src='" + previewURL + "'>");
-            $(".modal__content").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Open cover art in new tab' style='margin: 15px auto 0 auto; display: block;'>Open in new tab</a>");
-            $(".modal__content").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Download cover art' style='margin: 10px auto 0 auto; display: block;' download>Download</a>");
+            $(".modal__content .imageContent").append("<img style='width: 500px; height: 500px' src='" + previewURL + "'>");
+            $(".modal__content .imageContent").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Open cover art in new tab' style='margin: 15px auto 0 auto; display: block;'>Open in new tab</a>");
+            $(".modal__content .imageContent").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Download cover art' style='margin: 10px auto 0 auto; display: block;' download>Download</a>");
         });
 }, 250);
