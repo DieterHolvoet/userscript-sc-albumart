@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Soundcloud Album Art Downloader
 // @namespace    http://www.dieterholvoet.com
-// @version      1.9
+// @version      1.10.0
 // @description  Allows you to download album art on the Soundcloud website.
 // @author       Dieter Holvoet
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
