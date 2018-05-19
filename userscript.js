@@ -16,10 +16,8 @@ setInterval(function() {
     $('.modal__content:not(.appeared)')
         .addClass('appeared')
         .each(function() {
-
             var possibleClasses = [".listenArtworkWrapper", ".listenInfo"],
-                previewURL,
-                imageURL,
+                sizes = { 't500x500': '500x500', 'original': 'original size' },
                 regexp = /t\d{3}x\d{3}/gi;
 
             for (var i = 0; i < possibleClasses.length; i++) {
@@ -28,20 +26,30 @@ setInterval(function() {
                 }
             }
 
-            if (imageURL === null || imageURL === "") {
+            if (!imageURL) {
                 console.log("SoundCloud Album Art Downloader: No suitable selector found!");
-
             } else {
-                console.log(imageURL);
                 imageURL = /url\("(.+)"\)/.exec(imageURL)[1];
             }
 
-            previewURL = imageURL.replace(regexp, "t500x500");
-            imageURL = imageURL.replace(regexp, "original");
-
             $(".modal__content .image__full").parent().remove();
-            $(".modal__content .imageContent").append("<img style='width: 500px; height: 500px' src='" + previewURL + "'>");
-            $(".modal__content .imageContent").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Open cover art in new tab' style='margin: 15px auto 0 auto; display: block;'>Open in new tab</a>");
-            $(".modal__content .imageContent").append("<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + imageURL + "' title='Download cover art' style='margin: 10px auto 0 auto; display: block;' download>Download</a>");
+            $(".modal__content .imageContent").append("<img style='width: 500px; height: 500px; margin-bottom: 15px;' src='" + imageURL.replace(regexp, 't500x500') + "'>");
+
+            Object.keys(sizes).forEach(function (size) {
+                var url = imageURL.replace(regexp, size);
+                $.ajax({
+                    type: 'HEAD',
+                    url: url,
+                    complete: function(xhr) {
+                        if (xhr.status !== 200) {
+                            return;
+                        }
+
+                        $(".modal__content .imageContent").append(
+                            "<a class='sc-button sc-button-medium sc-button-responsive' target='_blank' href='" + url + "' title='Download " + sizes[size] + "' style='margin: 10px auto 0 auto; display: block;' download>Download " + sizes[size] + "</a>"
+                        );
+                    }
+                });
+            });
         });
 }, 250);
